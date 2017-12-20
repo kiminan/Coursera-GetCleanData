@@ -1,5 +1,5 @@
 ---
-title: "ReadMe - run_analysis.R"
+title: "README - run_analysis.R"
 output: html_document
 ---
 
@@ -7,9 +7,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Getting and Cleaning Data Course Project
+### 'Getting and Cleaning Data' Course Project
 
-This explains the steps in the script "run_analysis.R"
+This documents explains the steps in the script "run_analysis.R"
 
 ##### Fetch metadata
 ```{r eval=FALSE}
@@ -56,19 +56,19 @@ names(dataset0) <- features[,1]
 ```
 
 ##### Extract the measurements on the mean and standard deviation for each measurement
-All columns with names that contain the strings "mean" or "std"
+Find all columns with names that contain the strings "mean" or "std"
 ```{r eval=FALSE}
 statsColumns <- grepl("mean|std", names(dataset0), ignore.case = TRUE)
 dataset <- dataset0[statsColumns]
 ```
 
-##### Attach subjects & activities to data
+##### Attach subjects & activities to the dataset
 ```{r eval=FALSE}
 dataset <- cbind(activities, subjects, dataset)
 ```
 
 ##### Use descriptive activity names to name the activities in the data set
-Merge() will re-orderthe data, therefore this step must be performed after activities are merged with data
+Merge() will change the order of the data, therefore this step must be performed after activities have been merged with data.
 ```{r eval=FALSE}
 dataset <- merge(dataset, activity_labels)
 ```
@@ -80,7 +80,7 @@ dataset$activity <- NULL
 names(dataset)[1] <- "activity"
 ```
 
-##### Appropriately labels the data set with descriptive variable names
+##### Appropriately label the data set with descriptive variable names
 
 
 ##### Create a second, independent tidy data set with the average of each variable for each activity and each subject.
@@ -88,9 +88,8 @@ names(dataset)[1] <- "activity"
 dataset2 <- dataset %>% 
   group_by(subjectid, activity) %>%
   summarise_all(funs(mean))
-```
 
-##### Display the new dataset
-```{r}
-print(dataset2)
+#Persist the new dataset
+write.csv(dataset2,"data/assignment/dataset2.csv", row.names = FALSE )
+
 ```
