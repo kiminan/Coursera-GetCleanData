@@ -6,36 +6,36 @@ This documents explains the steps in the script "run\_analysis.R"
 
 ``` r
 activity_labels <- 
-    read.csv("data/assignment/activity_labels.txt", 
+    read.csv("activity_labels.txt", 
              header = FALSE, sep = "", col.names = c("activityid", "activity"))
 features <- 
-    read.csv("data/assignment/features.txt", 
+    read.csv("features.txt", 
              header = FALSE, sep = "")[2] ## Ignore first column
 ```
 
 ##### Fetch training data
 
 ``` r
-subject_train <- read.csv("data/assignment/train/subject_train.txt", 
+subject_train <- read.csv("subject_train.txt", 
                           header = FALSE, col.names = "subjectid")
 
-y_train <- read.csv("data/assignment/train/y_train.txt", 
+y_train <- read.csv("y_train.txt", 
                     header = FALSE, col.names = "activityid")
 
-X_train <- read.csv("data/assignment/train/X_train.txt", 
+X_train <- read.csv("X_train.txt", 
                     header = FALSE, sep = "")
 ```
 
 ##### Fetch test data
 
 ``` r
-subject_test <- read.csv("data/assignment/test/subject_test.txt", 
+subject_test <- read.csv("test/subject_test.txt", 
                          header = FALSE, col.names = "subjectid")
 
-y_test <- read.csv("data/assignment/test/y_test.txt", 
+y_test <- read.csv("test/y_test.txt", 
                    header = FALSE, col.names = "activityid")
 
-X_test <- read.csv("data/assignment/test/X_test.txt", 
+X_test <- read.csv("test/X_test.txt", 
                    header = FALSE, sep = "")
 ```
 
@@ -94,5 +94,5 @@ dataset2 <- dataset %>%
   summarise_all(funs(mean))
 
 #Persist the new dataset
-write.csv(dataset2,"data/assignment/dataset2.csv", row.names = FALSE )
+write.table(dataset2,"dataset2.txt", row.names = FALSE )
 ```

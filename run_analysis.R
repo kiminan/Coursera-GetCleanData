@@ -1,17 +1,17 @@
 ## Fetch metadata
-activity_labels <- read.csv("data/assignment/activity_labels.txt", header = FALSE, sep = "", col.names = c("activityid", "activity"))
-features <- read.csv("data/assignment/features.txt", header = FALSE, sep = "")[2]
+activity_labels <- read.csv("activity_labels.txt", header = FALSE, sep = "", col.names = c("activityid", "activity"))
+features <- read.csv("features.txt", header = FALSE, sep = "")[2]
 ## (Ignore first column)
 
 ## Fetch training data
-subject_train <- read.csv("data/assignment/train/subject_train.txt", header = FALSE, col.names = "subjectid")
-y_train <- read.csv("data/assignment/train/y_train.txt", header = FALSE, col.names = "activityid")
-X_train <- read.csv("data/assignment/train/X_train.txt", header = FALSE, sep = "")
+subject_train <- read.csv("subject_train.txt", header = FALSE, col.names = "subjectid")
+y_train <- read.csv("y_train.txt", header = FALSE, col.names = "activityid")
+X_train <- read.csv("X_train.txt", header = FALSE, sep = "")
 
 ## Fetch test data
-subject_test <- read.csv("data/assignment/test/subject_test.txt", header = FALSE, col.names = "subjectid")
-y_test <- read.csv("data/assignment/test/y_test.txt", header = FALSE, col.names = "activityid")
-X_test <- read.csv("data/assignment/test/X_test.txt", header = FALSE, sep = "")
+subject_test <- read.csv("subject_test.txt", header = FALSE, col.names = "subjectid")
+y_test <- read.csv("y_test.txt", header = FALSE, col.names = "activityid")
+X_test <- read.csv("X_test.txt", header = FALSE, sep = "")
 
 ## Merge the training and the test sets to create one data set
 subjects <- rbind(subject_train, subject_test)
@@ -48,4 +48,4 @@ dataset2 <- dataset %>%
   summarise_all(funs(mean))
 
 "Persist the new dataset"
-write.csv(dataset2,"data/assignment/dataset2.csv", row.names = FALSE )
+write.table(dataset2,"dataset2.txt", row.names = FALSE )
